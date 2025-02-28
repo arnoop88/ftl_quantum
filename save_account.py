@@ -1,2 +1,3 @@
-from qiskit_ibm_provider import IBMProvider
-IBMProvider.save_account(token='YOUR_API_TOKEN')
+from qiskit_ibm_runtime import QiskitRuntimeService
+
+QiskitRuntimeService.save_account(channel="ibm_quantum", token="YOUR_API_TOKEN", overwrite = True)
