@@ -1,2 +1,2 @@
-from qiskit.providers.ibmq import IBMQ
-IBMQ.save_account('PASTE_YOUR_API_TOKEN_HERE')
+from qiskit_ibm_provider import IBMProvider
+IBMProvider.save_account(token='YOUR_API_TOKEN')
