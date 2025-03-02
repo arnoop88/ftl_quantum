@@ -21,10 +21,10 @@ result = simulator.run(qc, shots=500).result()
 counts = result.get_counts()
 
 # Convert counts to probabilities
-total_shots = 500
-probabilities = {state: count/total_shots for state, count in counts.items()}
+probabilities = {state: count/500 for state, count in counts.items()}
 
 # Plot probability distribution
-plot_histogram(probabilities)
+fig = plot_histogram(probabilities)
+fig.get_axes()[0].set_ylabel("Probability")
 plt.savefig("probability_distribution.png")
 print("Measurement probabilities saved to 'probability_distribution.png'")
