@@ -1,21 +1,16 @@
 from qiskit_ibm_runtime import QiskitRuntimeService
+from qiskit_aer import Aer
 
 # Initialize the runtime service (automatically loads saved account)
 service = QiskitRuntimeService()
 
-# Get all available backends
-backends = service.backends()
-
-print("Available Quantum Simulators:")
-for backend in backends:
-    config = backend.configuration()
-    if config.simulator:
-        status = backend.status()
-        print(f"Simulator: {backend.name}, Queue length: {status.pending_jobs}")
+print("Local Quantum Simulators:")
+for simulator in Aer.backends():
+    print(f"	{simulator}")
 
 print("\nAvailable Quantum Computers:")
-for backend in backends:
+for backend in service.backends():
     config = backend.configuration()
     if not config.simulator:
         status = backend.status()
-        print(f"Quantum Computer: {backend.name}, Number of Qubits: {config.n_qubits}, Queue length: {status.pending_jobs}")
+        print(f"	{backend.name}, Number of Qubits: {config.n_qubits}, Queue length: {status.pending_jobs}")
