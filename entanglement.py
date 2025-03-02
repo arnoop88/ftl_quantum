@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 # Create a 2-qubit circuit
 qc = QuantumCircuit(2, 2)
 
-# Step 1: Create superposition on qubit 0
+# Create superposition on qubit 0
 qc.h(0)
 
-# Step 2: Entangle qubit 0 and 1 (CNOT gate)
+# Entangle qubit 0 and 1 (CNOT gate)
 qc.cx(0, 1)
 
 # Measure both qubits
