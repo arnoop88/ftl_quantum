@@ -19,21 +19,15 @@ plt.close()
 print("Circuit saved to 'bell_circuit_real.png'")
 
 # Get available backends
-all_backends = service.backends()
-print("Available backends:", [b.name for b in all_backends])
-
-# Filter for real backends
-real_backends = service.backends(
-    simulator=False,
-    operational=True
-)
+backends = service.backends()
+print("Available backends:", [b.name for b in backends])
 
 # Check backend availability
-if not real_backends:
+if not backends:
     raise RuntimeError("No real quantum devices available. Check your IBM Quantum account")
 
 # Select least busy backend
-backend = min(real_backends, key=lambda x: x.status().pending_jobs)
+backend = min(backends, key=lambda x: x.status().pending_jobs)
 print(f"Using backend: {backend.name}")
 
 # Transpile circuit
