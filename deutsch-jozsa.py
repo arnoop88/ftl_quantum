@@ -20,7 +20,7 @@ def deutsch_jozsa_circuit(oracle: QuantumCircuit) -> QuantumCircuit:
     for qubit in range(n):
         qc.h(qubit)
     
-    # Append the oracle (must act on 4 qubits)
+    # Append the oracle
     qc.compose(oracle, inplace=True)
     
     # Apply Hadamard to input qubits again
