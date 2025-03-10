@@ -32,13 +32,11 @@ def deutsch_jozsa_circuit(oracle: QuantumCircuit) -> QuantumCircuit:
     return qc
 
 def constant_oracle() -> QuantumCircuit:
-    """Oracle for a constant function (always outputs 1)."""
     oracle = QuantumCircuit(4)
     oracle.x(3)
     return oracle
 
 def balanced_oracle() -> QuantumCircuit:
-    """Oracle for a balanced function (outputs 1 for half the inputs)."""
     oracle = QuantumCircuit(4)
     oracle.cx(0, 3)
     oracle.cx(1, 3)
