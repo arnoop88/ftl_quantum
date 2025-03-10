@@ -24,7 +24,7 @@ def quantum_search(num_qubits: int, oracle: QuantumCircuit, iterations: int = 1)
     qc.measure(range(num_qubits), range(num_qubits))
     return qc
 
-def example_oracle() -> QuantumCircuit:
+def oracle() -> QuantumCircuit:
     oracle = QuantumCircuit(3, name="Oracle")
     oracle.h(2)
     oracle.ccx(0, 1, 2)
@@ -36,10 +36,10 @@ service = QiskitRuntimeService()
 
 # Parameters
 num_qubits = 3
-iterations = math.floor((math.pi / 4) * math.sqrt(2**num_qubits))  # 1 iteration
+iterations = math.floor((math.pi / 4) * math.sqrt(2**num_qubits))
 
 # Create circuit
-oracle = example_oracle()
+oracle = oracle()
 search_circuit = quantum_search(num_qubits, oracle, iterations)
 
 # Draw circuit
