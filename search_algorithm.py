@@ -39,8 +39,7 @@ num_qubits = 3
 iterations = math.floor((math.pi / 4) * math.sqrt(2**num_qubits))
 
 # Create circuit
-oracle = oracle()
-search_circuit = quantum_search(num_qubits, oracle, iterations)
+search_circuit = quantum_search(num_qubits, oracle(), iterations)
 
 # Draw circuit
 search_circuit.draw('mpl', filename="search_circuit.png")
