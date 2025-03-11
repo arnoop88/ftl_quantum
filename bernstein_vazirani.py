@@ -7,7 +7,7 @@ def bv_oracle(secret_string: str) -> QuantumCircuit:
     n = len(secret_string)
     oracle = QuantumCircuit(n + 1)
     for qubit, bit in enumerate(reversed(secret_string)):
-        if bit == '1':
+        if bit:
             oracle.cx(qubit, n)
     return oracle
 
