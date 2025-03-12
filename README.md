@@ -6,15 +6,15 @@ A collection of quantum algorithms implemented using Qiskit and IBM Quantum Runt
 
 ## 📋 Table of Contents
 
-- [Implemented Scripts](#🧮-Implemented-Scripts)
-- [Bonus Algorithms](#🏆-Bonus-Algorithms)
-- [Setup](#Setup)
-- [Usage](#Usage)
-- [Results Interpretation](#Results-Interpretation)
+- [Implemented Scripts](#-implemented-scripts)
+- [Bonus Algorithms](#-bonus-algorithms)
+- [Setup](#%EF%B8%8F-setup)
+- [Usage](#-usage)
+- [Results Interpretation](#-results-interpretation)
 
 ---
 
-## 🧮 Implemented Scripts
+## 📜 Implemented Scripts
 
 0. **Token**
    - Save your IBM quantum API token to your computer (`save_token.py`).
