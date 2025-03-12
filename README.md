@@ -6,8 +6,8 @@ A collection of quantum algorithms implemented using Qiskit and IBM Quantum Runt
 
 ## 📋 Table of Contents
 
-- [Implemented Scripts](#Implemented-Scripts)
-- [Bonus Algorithms](#Bonus-Algorithms)
+- [Implemented Scripts](#🧮-Implemented-Scripts)
+- [Bonus Algorithms](#🏆-Bonus-Algorithms)
 - [Setup](#Setup)
 - [Usage](#Usage)
 - [Results Interpretation](#Results-Interpretation)
