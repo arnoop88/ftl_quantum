@@ -1,3 +1,4 @@
+import os
 from qiskit import QuantumCircuit, transpile
 from qiskit_ibm_runtime import QiskitRuntimeService, Session
 from qiskit_ibm_runtime import SamplerV2 as Sampler
@@ -48,9 +49,10 @@ oracle = constant_oracle()  # Change to balanced_oracle() for balanced case
 dj_circuit = deutsch_jozsa_circuit(oracle)
 
 # Draw the full circuit
-dj_circuit.draw('mpl', filename="deutsch_jozsa_circuit.png")
+os.makedirs("images", exist_ok=True)
+dj_circuit.draw('mpl', filename="images/deutsch_jozsa_circuit.png")
 plt.close()
-print("Circuit saved to 'deutsch_jozsa_circuit.png'")
+print("Circuit saved to 'images/deutsch_jozsa_circuit.png'")
 
 # Get backend
 backends = service.backends()
@@ -82,5 +84,5 @@ else:
 # Plot results
 fig = plot_histogram(probabilities, title="Deutsch-Jozsa Results")
 fig.get_axes()[0].set_ylabel("Probability")
-fig.savefig("deutsch_jozsa_results.png", bbox_inches="tight")
-print("Results saved to 'deutsch_jozsa_results.png'")
+fig.savefig("images/deutsch_jozsa_results.png", bbox_inches="tight")
+print("Results saved to 'images/deutsch_jozsa_results.png'")

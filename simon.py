@@ -1,3 +1,4 @@
+import os
 from qiskit import QuantumCircuit, transpile
 from qiskit_ibm_runtime import QiskitRuntimeService, Session, SamplerV2 as Sampler
 from qiskit.visualization import plot_histogram
@@ -35,9 +36,10 @@ service = QiskitRuntimeService()
 secret = "101"  
 simon_circ = simon_algorithm(secret)
 
-simon_circ.draw('mpl', filename="simon_circuit.png")
+os.makedirs("images", exist_ok=True)
+simon_circ.draw('mpl', filename="images/simon_circuit.png")
 plt.close()
-print("Circuit saved to 'simon_circuit.png'")
+print("Circuit saved to 'images/simon_circuit.png'")
 
 backends = service.backends(simulator=False, operational=True)
 if not backends:
@@ -56,8 +58,8 @@ counts = result[0].data.c.get_counts()
 probabilities = {k: v/1000 for k, v in counts.items()}
 
 fig = plot_histogram(probabilities, title="Simon's Algorithm Results")
-fig.savefig("simon_results.png", bbox_inches="tight")
-print("Results saved to 'simon_results.png'")
+fig.savefig("images/simon_results.png", bbox_inches="tight")
+print("Results saved to 'images/simon_results.png'")
 
 for z in counts:
     print('{} ⋅ {} = {} (mod 2)'.format(secret, z, bdotz(secret, z)))

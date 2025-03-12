@@ -1,3 +1,4 @@
+import os
 from qiskit import QuantumCircuit, transpile
 from qiskit_ibm_runtime import QiskitRuntimeService, Session
 from qiskit_ibm_runtime import SamplerV2 as Sampler
@@ -14,9 +15,10 @@ qc.cx(0, 1)
 qc.measure([0, 1], [0, 1])
 
 # Draw circuit
-qc.draw('mpl', filename="bell_circuit_real.png")
+os.makedirs("images", exist_ok=True)
+qc.draw('mpl', filename="images/bell_circuit_real.png")
 plt.close()
-print("Circuit saved to 'bell_circuit_real.png'")
+print("Circuit saved to 'images/bell_circuit_real.png'")
 
 # Get available backends
 backends = service.backends()
@@ -45,5 +47,5 @@ probabilities = {state: count/500 for state, count in counts.items()}
 
 fig = plot_histogram(probabilities, title="Measurement Results")
 fig.get_axes()[0].set_ylabel("Probability")
-fig.savefig("bell_state_results_real.png", bbox_inches="tight")
-print("Results saved to 'bell_state_results_real.png'")
+fig.savefig("images/bell_state_results_real.png", bbox_inches="tight")
+print("Results saved to 'images/bell_state_results_real.png'")

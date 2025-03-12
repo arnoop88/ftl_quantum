@@ -1,3 +1,4 @@
+import os
 from qiskit import QuantumCircuit, transpile
 from qiskit_ibm_runtime import QiskitRuntimeService, Session, SamplerV2 as Sampler
 from qiskit.visualization import plot_histogram
@@ -42,9 +43,10 @@ iterations = math.floor((math.pi / 4) * math.sqrt(2**num_qubits))
 search_circuit = quantum_search(num_qubits, oracle(), iterations)
 
 # Draw circuit
-search_circuit.draw('mpl', filename="search_circuit.png")
+os.makedirs("images", exist_ok=True)
+search_circuit.draw('mpl', filename="images/search_circuit.png")
 plt.close()
-print("Circuit saved to 'search_circuit.png'")
+print("Circuit saved to 'images/search_circuit.png'")
 
 # Get backend
 backends = service.backends()
@@ -67,5 +69,5 @@ probabilities = {k: v/1000 for k, v in counts.items()}
 
 # Plot results
 fig = plot_histogram(probabilities, title="Quantum Search Results")
-fig.savefig("search_results.png", bbox_inches="tight")
-print("Results saved to 'search_results.png'")
+fig.savefig("images/search_results.png", bbox_inches="tight")
+print("Results saved to 'images/search_results.png'")

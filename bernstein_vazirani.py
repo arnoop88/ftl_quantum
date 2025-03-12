@@ -1,4 +1,5 @@
 from qiskit import QuantumCircuit, transpile
+import os
 from qiskit_ibm_runtime import QiskitRuntimeService, Session, SamplerV2 as Sampler
 from qiskit.visualization import plot_histogram
 import matplotlib.pyplot as plt
@@ -28,9 +29,10 @@ service = QiskitRuntimeService()
 secret = "101"  # Secret string to find
 bv_circuit = bernstein_vazirani(secret)
 
-bv_circuit.draw('mpl', filename="bv_circuit.png")
+os.makedirs("images", exist_ok=True)
+bv_circuit.draw('mpl', filename="images/bv_circuit.png")
 plt.close()
-print("Circuit saved to 'bv_circuit.png'")
+print("Circuit saved to 'images/bv_circuit.png'")
 
 backends = service.backends(simulator=False, operational=True)
 if not backends:
@@ -49,8 +51,8 @@ counts = result[0].data.c.get_counts()
 probabilities = {k: v/1000 for k, v in counts.items()}
 
 fig = plot_histogram(probabilities, title="Bernstein-Vazirani Results")
-fig.savefig("bv_results.png", bbox_inches="tight")
-print("Results saved to 'bv_results.png'")
+fig.savefig("images/bv_results.png", bbox_inches="tight")
+print("Results saved to 'images/bv_results.png'")
 
 # Print most probable result
 most_probable = max(probabilities, key=probabilities.get)

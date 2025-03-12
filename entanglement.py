@@ -1,3 +1,4 @@
+import os
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
 from qiskit.visualization import plot_histogram
@@ -16,9 +17,10 @@ qc.cx(0, 1)
 qc.measure([0, 1], [0, 1])
 
 # Draw the circuit
+os.makedirs("images", exist_ok=True)
 qc.draw('mpl')
-plt.savefig("bell_circuit.png")
-print("Circuit saved to 'bell_circuit.png'")
+plt.savefig("images/bell_circuit.png")
+print("Circuit saved to 'images/bell_circuit.png'")
 
 # Simulate with 500 shots
 simulator = Aer.get_backend('qasm_simulator')
@@ -30,5 +32,5 @@ probabilities = {state: count/500 for state, count in counts.items()}
 # Plot results
 fig = plot_histogram(probabilities)
 fig.get_axes()[0].set_ylabel("Probability")
-plt.savefig("bell_state_results.png")
-print("Results saved to 'bell_state_results.png'")
+plt.savefig("images/bell_state_results.png")
+print("Results saved to 'images/bell_state_results.png'")
