@@ -4,7 +4,6 @@ from qiskit_aer import Aer
 from qiskit.visualization import plot_histogram
 import matplotlib.pyplot as plt
 import numpy as np
-import math
 from scipy.optimize import minimize
 
 # Define the Hamiltonian: H = Z0 + Z1 + Z0*Z1.
