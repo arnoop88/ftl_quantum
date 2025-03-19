@@ -38,7 +38,7 @@ A collection of quantum algorithms implemented using Qiskit and IBM Quantum Runt
 2. **Simon's Algorithm**
    - Identify a periodic hidden string (`simon.py`).
 3. **Shor's Algorithm**
-   - Simplified factorization of N = 15 (`shor.py`).
+   - Simplified factorization of `N = 15` (`shor.py`).
 4. **Quantum Phase Estimation (QPE)**
    - Estimate the eigenphase of a unitary operator (`qpe.py`).
 5. **Variational Quantum Eigensolver (VQE)**
@@ -71,14 +71,14 @@ A collection of quantum algorithms implemented using Qiskit and IBM Quantum Runt
 
 - **Key Outputs**
   - **Simon's Algorithm**:
-    - Measurements (e.g., `001`, `110`) will satisfy y·s = 0 mod 2
-    - Use Gaussian elimination on valid measurements to solve for the hidden string s
+    - Measurements (e.g., `001`, `110`) will satisfy `y·s = 0 mod 2`
+    - Use Gaussian elimination on valid measurements to solve for the hidden string `s`
   - **Shor's Algorithm**:
-    - Look for dominant measurements like `0100` (binary for 4), which represent the period r
-    - Compute factors using gcd(a^(r/2) ± 1, N)
+    - Look for dominant measurements like `0100` (binary for 4), which represent the period `r`
+    - Compute factors using `gcd(a^(r/2) ± 1, N)`
   - **VQE**:
     - Optimal parameters represent angles in the ansatz circuit
-    - Energy close to -1.0 indicates successful ground state preparation
+    - Energy close to `-1.0` indicates successful ground state preparation
 
 ---
 
