@@ -1,6 +1,6 @@
 import os
 from qiskit import QuantumCircuit, transpile
-from qiskit_ibm_runtime import QiskitRuntimeService, Session, SamplerV2 as Sampler
+from qiskit_aer import Aer
 from qiskit.visualization import plot_histogram
 import math
 import matplotlib.pyplot as plt
@@ -26,18 +26,15 @@ def quantum_search(num_qubits: int, oracle: QuantumCircuit, iterations: int = 1)
     return qc
 
 def oracle() -> QuantumCircuit:
-    oracle = QuantumCircuit(3, name="Oracle")
-    oracle.h(2)
-    oracle.ccx(0, 1, 2)
-    oracle.h(2)
+    oracle = QuantumCircuit(5, name="Oracle")
+    oracle.ch(0,2)
+    oracle.ccx(1, 3, 2)
+    oracle.ch(0,2)
     return oracle
 
-# Initialize service
-service = QiskitRuntimeService()
-
 # Parameters
-num_qubits = 3
-iterations = math.floor((math.pi / 4) * math.sqrt(2**num_qubits))
+num_qubits = 5
+iterations = round((math.pi / 4) * math.sqrt(2 ** num_qubits / 2))
 
 # Create circuit
 search_circuit = quantum_search(num_qubits, oracle(), iterations)
@@ -48,23 +45,13 @@ search_circuit.draw('mpl', filename="images/search_circuit.png")
 plt.close()
 print("Circuit saved to 'images/search_circuit.png'")
 
-# Get backend
-backends = service.backends()
-print("Available backends:", [b.name for b in backends])
-if not backends:
-    raise RuntimeError("No real quantum devices available. Check your IBM Quantum account")
-backend = min(backends, key=lambda x: x.status().pending_jobs)
-print(f"Using backend: {backend.name}")
+# Use local simulator
+simulator = Aer.get_backend('qasm_simulator')
+transpiled_search = transpile(search_circuit, backend=simulator)
 
-transpiled_search = transpile(search_circuit, backend=backend)
-
-with Session(backend=backend) as session:
-    sampler = Sampler(mode=session)
-    job = sampler.run([transpiled_search], shots=1000)
-    result = job.result()
-
-# Analyze results
-counts = result[0].data.c.get_counts()
+# Run simulation
+result = simulator.run(transpiled_search, shots=1000).result()
+counts = result.get_counts()
 probabilities = {k: v/1000 for k, v in counts.items()}
 
 # Plot results
