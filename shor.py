@@ -2,7 +2,7 @@ import numpy as np
 import os
 from qiskit import QuantumCircuit, transpile
 from qiskit.circuit.library import QFT, UnitaryGate
-from qiskit_ibm_runtime import QiskitRuntimeService, Session, SamplerV2 as Sampler
+from qiskit_aer import Aer
 from qiskit.visualization import plot_histogram
 import matplotlib.pyplot as plt
 
@@ -41,29 +41,22 @@ n = 4
 
 shor_qc = shor_circuit_custom(N, a, t, n)
 
+# Save circuit diagram
 os.makedirs("images", exist_ok=True)
 shor_qc.draw('mpl', filename="images/shor_circuit.png")
 plt.close()
 print("Circuit saved to 'images/shor_circuit.png'")
 
-service = QiskitRuntimeService()
+# Use local simulator
+simulator = Aer.get_backend('qasm_simulator')
+transpiled_shor = transpile(shor_qc, backend=simulator)
 
-backends = service.backends(simulator=False, operational=True)
-if not backends:
-    raise RuntimeError("No real quantum devices available. Check your IBM Quantum account")
-backend = min(backends, key=lambda x: x.status().pending_jobs)
-print(f"Using backend: {backend.name}")
-
-transpiled_shor = transpile(shor_qc, backend=backend)
-
-with Session(backend=backend) as session:
-    sampler = Sampler(mode=session)
-    job = sampler.run([transpiled_shor], shots=1000)
-    result = job.result()
-
-counts = result[0].data.c.get_counts()
+# Run simulation
+result = simulator.run(transpiled_shor, shots=1000).result()
+counts = result.get_counts()
 probabilities = {k: v / 1000 for k, v in counts.items()}
 
-fig = plot_histogram(probabilities, title="Shor's Algorithm (Custom) Results")
+# Plot results
+fig = plot_histogram(probabilities, title="Shor's Algorithm Results")
 fig.savefig("images/shor_results.png", bbox_inches="tight")
 print("Results saved to 'images/shor_results.png'")
